@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Library Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: "Poppins", sans-serif;
+        }
+        .page-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-top: 30px;
+        }
+        .top-buttons .btn {
+            border-radius: 10px;
+            padding: 10px 25px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.09);
+        }
+        table th {
+            background: #f0f0f0;
+            font-size: 18px;
+        }
+        table td {
+            vertical-align: middle;
+            font-size: 16px;
+        }
+        .action-btn {
+            border-radius: 8px;
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <!-- Title -->
+    <h1 class="page-title text-center">Library Dashboard</h1>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-center gap-3 my-4 top-buttons">
+        <a href="/add-book/" class="btn btn-success">Add Book</a>
+        <a href="/profile/" class="btn btn-secondary">Profile</a>
+        <a href="/logout/" class="btn btn-danger">Logout</a>
+    </div>
+
+    <!-- Books Table -->
+    <div class="card p-3">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="20%">Title</th>
+                    <th width="20%">Author</th>
+                    <th>Description</th>
+                    <th width="20%">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.description }}</td>
+
+                    <td>
+                        <a href="/edit-book/{{ book.id }}/" class="btn btn-warning action-btn">Edit</a>
+                        <a href="/delete-book/{{ book.id }}/" class="btn btn-danger action-btn"
+                           onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-3">No Books Available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
